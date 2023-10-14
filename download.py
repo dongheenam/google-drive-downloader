@@ -109,14 +109,13 @@ def get_file_extension(mime_type):
         mime_type: mimetype of the file
     Returns : File extension
     """
-    if mime_type == "application/vnd.google-apps.document":
-        return ".docx"
-    elif mime_type == "application/vnd.google-apps.spreadsheet":
-        return ".xlsx"
-    elif mime_type == "application/vnd.google-apps.presentation":
-        return ".pptx"
-    else:
-        return ""
+    EXTENSION_INDEX = {
+        "document": ".docx",
+        "spreadsheet": ".xlsx",
+        "presentation": ".pptx",
+    }
+    document_type = mime_type.split(".")[-1]
+    return EXTENSION_INDEX[document_type]
 
 
 def save_file(bytes: io.BytesIO, filename: str):
