@@ -2,9 +2,9 @@
 
 Downloads files given its share link from Google Drive using the Google Drive API.
 - For Google Apps, the file is converted to equivalent Microsoft Office format. Supported formats:
-    - Google Docs
-    - Google Sheets
-    - Google Slides
+    - Google Docs (exported as .docx)
+    - Google Sheets (exported as .xlsx)
+    - Google Slides (exported as .pptx)
 - For all other files, the file is downloaded in its original format.
 
 ## Installation
