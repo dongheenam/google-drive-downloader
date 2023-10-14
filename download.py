@@ -145,7 +145,9 @@ def init():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file(
+                "client_secret.json", SCOPES
+            )
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open("token.json", "w") as token:
@@ -174,13 +176,11 @@ if __name__ == "__main__":
     if mime_type.startswith("application/vnd.google-apps"):
         file_media = export_file(file_id, mime_type, service)
         extension = get_file_extension(mime_type)
-        if file_media is not None:
-            print(f"Downloaded {name} as a {extension} file!")
         name = name + extension
     else:
         file_media = download_file(parse_URL(args.url), service)
-        if file_media is not None:
-            print(f"Downloaded {name}!")
-
     if file_media is not None:
+        print(f"Downloaded {name}!")
         save_file(file_media, name)
+    else:
+        print("Failed to download file with id {file_id}...")
