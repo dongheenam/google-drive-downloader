@@ -76,14 +76,14 @@ def export_file(file_id, mime_type, service):
         service: google API Service object
     Returns : FileIO object containing the file
     """
-    MIME_TYPE_WORD_PREFIX = "application/vnd.openxmlformats-officedocument"
+    MIME_TYPE_PREFIX = "application/vnd.openxmlformats-officedocument"
     MIME_TYPE_INDEX = {
         "document": "wordprocessingml.document",
         "spreadsheet": "spreadsheetml.sheet",
         "presentation": "presentationml.presentation",
     }
     document_type = mime_type.split(".")[-1]
-    request_mime_type = f"{MIME_TYPE_WORD_PREFIX}.{MIME_TYPE_INDEX[document_type]}"
+    request_mime_type = f"{MIME_TYPE_PREFIX}.{MIME_TYPE_INDEX[document_type]}"
 
     try:
         # pylint: disable=maybe-no-member
@@ -177,9 +177,9 @@ if __name__ == "__main__":
         extension = get_file_extension(mime_type)
         name = name + extension
     else:
-        file_media = download_file(parse_URL(args.url), service)
+        file_media = download_file(file_id, service)
     if file_media is not None:
         print(f"Downloaded {name}!")
         save_file(file_media, name)
     else:
-        print("Failed to download file with id {file_id}...")
+        print(f"Failed to download file with id {file_id}...")
